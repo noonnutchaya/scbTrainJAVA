@@ -40,12 +40,7 @@ public class CustomerController {
     @GetMapping(params = "name")
     public ResponseEntity<?> getCustomerByName(@RequestParam(value = "name") String name) {
         List<Customer> customer = customerService.getCustomerName(name);
-        if (customer != null) {
-            return ResponseEntity.ok(customer);
-        }
-        else {
-            return ResponseEntity.notFound().build();
-        }
+        return customer != null && !customer.isEmpty() ? ResponseEntity.ok(customer) : ResponseEntity.notFound().build();
     }
 
     @RequestMapping(method = RequestMethod.POST)
